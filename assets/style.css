@@ -166,7 +166,7 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
   box-shadow: 0 24px 48px -22px rgba(22, 33, 28, 0.55);
 }
 
-.device img { display: block; width: 244px; border-radius: 32px; }
+.device img { display: block; width: 244px; height: auto; border-radius: 32px; }
 .mockup figcaption { margin: 0.9rem 0 0; font-size: 0.8rem; color: #8a948d; }
 
 /* 기능 카드 */
