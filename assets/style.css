@@ -370,3 +370,74 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
   .site-footer .wrap { grid-template-columns: 1fr; gap: 1.5rem; }
   .logo-en { display: none; }
 }
+
+/* 안내 배너 — 개정 안내(/privacy)·이전 버전 안내(/privacy/v1) */
+.notice-banner {
+  margin: 0 0 1.5rem;
+  padding: 0.85rem 1.15rem;
+  background: var(--bg-tint);
+  border: 1px solid var(--line-tint);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--accent-ink);
+}
+
+.notice-banner a { color: var(--accent); font-weight: 500; white-space: nowrap; }
+
+/* 조문 목록 — 항(①②③)·호(1. 2. 3.) */
+@counter-style circled {
+  system: fixed;
+  symbols: "①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧" "⑨" "⑩";
+  suffix: " ";
+  fallback: decimal;
+}
+
+.page-body p:not(.effective-date) { margin: 0.75rem 0; }
+.page-body ol { margin: 0; padding-left: 1.5rem; display: grid; gap: 0.5rem; }
+.page-body ol.clauses { list-style: circled; padding-left: 1.6rem; }
+.page-body ol.items { list-style: decimal; padding-left: 1.4rem; }
+.page-body li > ol,
+.page-body li > .kv { margin-top: 0.6rem; }
+
+/* 키-값 목록형(위탁 정보·지원 환경) — 모바일에서 세로로 쌓여 가로 스크롤이 없다 */
+.kv {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.kv > div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding: 0.6rem 0.95rem;
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.kv > div:first-child { border-top: 0; }
+.kv dt { color: var(--text-sub); }
+.kv dd { margin: 0; }
+
+/* 앵커 이동 시 고정 헤더에 제목이 가려지지 않도록 (홈 섹션의 scroll-margin-top과 동일값) */
+.page-body h2[id] { scroll-margin-top: 4.5rem; }
+
+/* 개정 이력 */
+.page-body h2 + .effective-date { margin-top: 0; }
+.page-body .history { margin-top: 1rem; }
+
+/* 서브 페이지 본문 안의 FAQ — h2 구분선과 겹치는 첫 항목 상단선 제거 */
+.page-body .faq > div:first-child { border-top: 0; padding-top: 0.25rem; }
+.page-body .faq > div:last-child { border-bottom: 0; }
+
+/* 스토어 배지 자리 — 출시 전 비노출(index.html 주석 해제 시 사용) */
+.store-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+.store-badges img { display: block; height: 44px; width: auto; }
+
+@media (max-width: 480px) {
+  .kv > div { grid-template-columns: 1fr; gap: 0.15rem; }
+}
