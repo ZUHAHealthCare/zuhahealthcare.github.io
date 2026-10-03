@@ -401,6 +401,12 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 .page-body li > ol,
 .page-body li > .kv { margin-top: 0.6rem; }
 
+/* 본문 속 긴 URL이 좁은 화면에서 목록 폭을 밀어내지 않도록 */
+.page-body a[href^="http"] { overflow-wrap: anywhere; }
+
+/* 조문 안의 소제목 — 국외 이전의 정보별 블록 */
+.page-body h3.block-title { margin: 1.25rem 0 0.6rem; font-size: 1rem; line-height: 1.5; }
+
 /* 키-값 목록형(위탁 정보·지원 환경) — 모바일에서 세로로 쌓여 가로 스크롤이 없다 */
 .kv {
   margin: 0;
