@@ -110,14 +110,29 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 .measure p:last-child { margin-bottom: 0; }
 
 /* 히어로 */
+/* 히어로 — 글(제목·소개)과 배너가 한 줄, 그 아래 다운로드 버튼과 상태 문구 (2026-11-13)
+   좁은 화면에서는 글 → 배너 → 버튼 → 상태 문구 순서로 쌓인다(HTML 순서와 같음). */
 .hero.wrap {
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
-  gap: 3.5rem;
+  grid-template-areas:
+    "text banner"
+    "links links"
+    "status status";
+  column-gap: 3.5rem;
   align-items: center;
   padding-top: 4.25rem;
   padding-bottom: 3.5rem;
 }
+
+/* 1000px 이상은 반반 — 제목이 두 줄을 유지하는 폭에서 배너를 키운다 */
+@media (min-width: 1000px) {
+  .hero.wrap { grid-template-columns: 1fr 1fr; }
+}
+
+.hero-text { grid-area: text; }
+.hero .store-links { grid-area: links; }
+.hero .status { grid-area: status; justify-self: start; margin-top: 0.85rem; }
 
 .kicker { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.4rem; }
 .kicker::before { content: ""; display: block; width: 26px; height: 2px; background: var(--accent); }
@@ -149,25 +164,22 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 .status::before {
   content: "";
   display: block;
+  flex-shrink: 0; /* 두 줄로 접혀도 점이 찌그러지지 않게 */
   width: 7px;
   height: 7px;
   border-radius: 999px;
   background: var(--accent);
 }
 
-/* 앱 화면 목업 */
-.mockup { text-align: center; }
-
-.device {
-  display: inline-block;
-  padding: 9px;
-  background: #16211c;
-  border-radius: 40px;
-  box-shadow: 0 24px 48px -22px rgba(22, 33, 28, 0.55);
+/* 히어로 배너 — Play 그래픽 이미지 1024×500 (2026-11-13) */
+.hero-banner { grid-area: banner; margin: 0; }
+.hero-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
-
-.device img { display: block; width: 244px; height: auto; border-radius: 32px; }
-.mockup figcaption { margin: 0.9rem 0 0; font-size: 0.8rem; color: #8a948d; }
 
 /* 기능 카드 */
 .features {
@@ -212,6 +224,7 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 }
 
 .badge.is-active { border-color: var(--line-tint); color: var(--accent-ink); }
+.badge.is-live { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
 
 /* 회사 정보 */
 #company { background: var(--bg-soft); }
@@ -354,8 +367,12 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 
 /* 반응형 */
 @media (max-width: 900px) {
-  .hero.wrap { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3rem; }
-  .mockup { text-align: left; }
+  .hero.wrap {
+    grid-template-columns: 1fr;
+    grid-template-areas: "text" "banner" "links" "status";
+    padding-top: 3rem;
+  }
+  .hero-banner { margin-top: 1.75rem; max-width: 32rem; }
   .features { grid-template-columns: 1fr 1fr; }
 }
 
@@ -440,10 +457,23 @@ h2 { margin: 0 0 1.5rem; font-size: 1.5rem; line-height: 1.45; letter-spacing: -
 .page-body .faq > div:first-child { border-top: 0; padding-top: 0.25rem; }
 .page-body .faq > div:last-child { border-bottom: 0; }
 
-/* 스토어 배지 자리 — 출시 전 비노출(index.html 주석 해제 시 사용) */
-.store-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
-.store-badges img { display: block; height: 44px; width: auto; }
+/* 스토어 링크 — 2026-11-13 출시 */
+.store-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+.btn-store {
+  min-width: 12.5rem;
+  padding: 0.7rem 1.35rem;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.btn-store:hover { background: var(--accent-deep); color: #fff; }
 
 @media (max-width: 480px) {
   .kv > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  .status { border-radius: 14px; } /* 두세 줄로 접힐 때 알약 끝이 과하게 둥글지 않게 */
 }
